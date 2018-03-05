@@ -31,10 +31,16 @@ public class UserInteraction {
         Scanner user_input = new Scanner(System.in);
         animalsRepository.getAnimals("dog");
         System.out.println("What breed of dog are you looking for?");
-        String dog_breed = user_input.next();
+        String dog_breed = user_input.nextLine();
+        animalsRepository.getAnimalbybreed(dog_breed);
 
     }
     public void cat(){
+        Scanner user_input = new Scanner(System.in);
+        animalsRepository.getAnimals("cat");
+        System.out.println("What breed of dog are you looking for?");
+        String cat_breed = user_input.nextLine();
+        animalsRepository.getAnimalbybreed(cat_breed);
     }
     public void other(){
     }
