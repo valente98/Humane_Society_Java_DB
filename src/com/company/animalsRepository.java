@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class animalsRepository {
     // this will show the user the different types of breed.
@@ -47,6 +48,23 @@ public class animalsRepository {
             }
             preparedStatement.close();
         }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public  static void getAnimaltoDelete(String animal_type){
+        try{
+            Connection conn = JDBCConnection.getDatabase();
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM Animals Where Species= ?");
+            preparedStatement.setString(1, animal_type);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                System.out.println("Id: " + resultSet.getString("animal_id") +
+                    ", Name: " + resultSet.getString("name") + ", Breed: " + resultSet.getString("breed")+
+                    ", Gender: " + resultSet.getString("male_female") + ", Age: " + resultSet.getString("age")+
+                    ", Color: " + resultSet.getString("color") + ", Intake Date: " + resultSet.getString("intake_date"));
+            }
+        } catch (SQLException e){
             System.out.println(e.getMessage());
         }
     }

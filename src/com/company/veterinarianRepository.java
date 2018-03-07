@@ -29,4 +29,17 @@ public class veterinarianRepository {
             System.out.println(e.getMessage());
         }
     }
+
+    public static void delete_animal(Integer animal_id){
+        try{
+            Connection conn = JDBCConnection.getDatabase();
+            PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM Animals WHERE animal_id=?");
+            preparedStatement.setInt(1, animal_id);
+            preparedStatement.execute();
+            System.out.println("The animal you are trying to take out. Has been taken out of the system.");
+            preparedStatement.close();
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
 }

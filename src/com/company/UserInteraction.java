@@ -53,13 +53,20 @@ public class UserInteraction {
 
     }
 
-    public void take_animal_away(){}
+    public void take_animal_away(){
+        System.out.println("What is the species of the animal your are trying to take out?");
+        String species = user_input.nextLine().toLowerCase();
+        animalsRepository.getAnimaltoDelete(species);
+        System.out.println("Please type the Id of the animal you are trying to take out.");
+        Integer animal_id = Integer.valueOf(user_input.nextLine());
+        veterinarianRepository.delete_animal(animal_id);
+    }
 
     public void insert_animal() throws SQLException{
         System.out.println("\nWhat is the name of your animals?");
         String name = user_input.nextLine();
         System.out.println("\nWhat is the Species of "+ name);
-        String species = user_input.nextLine();
+        String species = user_input.nextLine().toLowerCase();
         System.out.println("\nWhat is the Breed of "+ name);
         String breed = user_input.nextLine();
         System.out.println("\nIs "+ name + " a male of female");
