@@ -11,6 +11,18 @@ import java.util.Calendar;
 
 public class animalsRepository {
     // this will show the user the different types of breed.
+    public static void showAllAnimalsSpecies(){
+        try{
+            Connection conn = JDBCConnection.getDatabase();
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM Animals");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                System.out.println("\t"+resultSet.getString("species"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
     public static void getAnimals(String animal_type){
         try {
             Connection conn = JDBCConnection.getDatabase();
@@ -18,10 +30,24 @@ public class animalsRepository {
             preparedStatement.setString(1,animal_type);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
-                System.out.println(resultSet.getString("breed"));
+                System.out.println("\n\t"+resultSet.getString("breed"));
             }
+            preparedStatement.close();
 
         }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    public static void otherAnimals(){
+        try{
+            Connection conn = JDBCConnection.getDatabase();
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM Animals Where not(species = 'dog' or species = 'cat')");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                System.out.println("\n\t"+resultSet.getString("species"));
+            }
+            preparedStatement.close();
+        } catch (SQLException e){
             System.out.println(e.getMessage());
         }
     }
@@ -35,7 +61,7 @@ public class animalsRepository {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 System.out.println("name: "+ resultSet.getString("name") + ", Age: " +
-                        resultSet.getString("age")+"M or F: "+
+                        resultSet.getString("age")+", M or F: "+
                         resultSet.getString("male_female") + ", Color: " +
                         resultSet.getString("color") + "Size: " +
                         resultSet.getString("size")+ ", Intake Date: " +
@@ -64,6 +90,7 @@ public class animalsRepository {
                     ", Gender: " + resultSet.getString("male_female") + ", Age: " + resultSet.getString("age")+
                     ", Color: " + resultSet.getString("color") + ", Intake Date: " + resultSet.getString("intake_date"));
             }
+            preparedStatement.close();
         } catch (SQLException e){
             System.out.println(e.getMessage());
         }

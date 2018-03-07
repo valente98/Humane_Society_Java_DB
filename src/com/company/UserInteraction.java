@@ -54,10 +54,12 @@ public class UserInteraction {
     }
 
     public void take_animal_away(){
+        System.out.println("Animal Species: ");
+        animalsRepository.showAllAnimalsSpecies();
         System.out.println("What is the species of the animal your are trying to take out?");
         String species = user_input.nextLine().toLowerCase();
         animalsRepository.getAnimaltoDelete(species);
-        System.out.println("Please type the Id of the animal you are trying to take out.");
+        System.out.println("\nPlease type the Id of the animal you are trying to take out.");
         Integer animal_id = Integer.valueOf(user_input.nextLine());
         veterinarianRepository.delete_animal(animal_id);
     }
@@ -68,9 +70,9 @@ public class UserInteraction {
         System.out.println("\nWhat is the Species of "+ name);
         String species = user_input.nextLine().toLowerCase();
         System.out.println("\nWhat is the Breed of "+ name);
-        String breed = user_input.nextLine();
+        String breed = user_input.nextLine().toLowerCase();
         System.out.println("\nIs "+ name + " a male of female");
-        String m_or_f = user_input.nextLine();
+        String m_or_f = user_input.nextLine().toLowerCase();
         System.out.println("\nWhat is the Age of "+ name);
         Double age = Double.parseDouble(user_input.nextLine());
         System.out.println("\nWhat are the colors of " + name);
@@ -92,18 +94,28 @@ public class UserInteraction {
     }
 
     public void dog() throws SQLException {
+        System.out.println("Dogs breed");
         animalsRepository.getAnimals("dog");
         System.out.println("What breed of dog are you looking for?");
-        String dog_breed = user_input.nextLine();
+        String dog_breed = user_input.nextLine().toLowerCase();
         animalsRepository.getAnimalbybreed(dog_breed);
 
     }
     public void cat(){
+        System.out.println("Cats breed: ");
         animalsRepository.getAnimals("cat");
         System.out.println("What breed of dog are you looking for?");
-        String cat_breed = user_input.nextLine();
+        String cat_breed = user_input.nextLine().toLowerCase();
         animalsRepository.getAnimalbybreed(cat_breed);
     }
-    public void other(){
+    public void other() {
+        System.out.println("Animal species: ");
+        animalsRepository.otherAnimals();
+        System.out.println("What kind of animal are you looking for?");
+        String animal_species = user_input.nextLine().toLowerCase();
+        System.out.println(animal_species + " breed:");
+        animalsRepository.getAnimals(animal_species);
+        String animal_breed = user_input.nextLine().toLowerCase();
+        animalsRepository.getAnimalbybreed(animal_breed);
     }
 }
